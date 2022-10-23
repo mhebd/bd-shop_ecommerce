@@ -10,6 +10,8 @@ const path = require('path');
 const userRouter = require('./route/user');
 const categoryRoute = require('./route/category');
 const productRoute = require('./route/product');
+const cartItemRoute = require('./route/cartItem');
+const orderRoute = require('./route/order');
 
 // Create Server
 const app = express();
@@ -27,6 +29,8 @@ database();
 app.use('/api/v1/user', userRouter);
 app.use('/api/v1/category', categoryRoute);
 app.use('/api/v1/product', productRoute);
+app.use('/api/v1/cart-item', cartItemRoute);
+app.use('/api/v1/order', orderRoute);
 
 // Show Error Message
 app.use(error);

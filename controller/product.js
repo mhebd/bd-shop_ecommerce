@@ -11,7 +11,9 @@ const {
   => /api/v1/product
   => Limited
 */
-exports.createProduct = createOne(Product);
+exports.createProduct = createOne(Product, {
+	destination: './uploads/product',
+});
 
 /**
   => @GET
@@ -36,7 +38,9 @@ exports.fetchProduct = findOne(Product, { path: 'category', select: 'name' });
   => /api/v1/product/:id
   => Limited
 */
-exports.updateProduct = updateOne(Product);
+exports.updateProduct = updateOne(Product, {
+	destination: './uploads/product',
+});
 
 /**
   => @DELETE

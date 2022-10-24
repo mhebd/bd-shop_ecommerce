@@ -28,16 +28,26 @@ exports.createOrder = asyncHdl(async (req, res, next) => {
 		};
 	});
 
-	const totalPrice = cartItems.reduce(
-		(price, item) => price + item.quantity * item.product.price,
-		0
-	);
+	const totalPrice = cartItems.reduce((total, item) => {
+		let price = item.product.price;
+		if (item.product.discount) {
+			price = price - price * (item.product.discount / 100);
+		}
+
+		return total + item.quantity * price;
+	}, 0);
 
 	const order = await Order.create({
 		products,
 		user,
 		totalPrice,
 	});
+
+	if (order) {
+		cartItems.forEach(async (item) => {
+			await CartItem.findByIdAndDelete(item._id);
+		});
+	}
 
 	res.status(200).json(new Result(true, 'Order created success', { order }));
 });

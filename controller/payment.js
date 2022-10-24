@@ -15,7 +15,7 @@ exports.createPayment = asyncHdl(async (req, res, next) => {
 		populate: {
 			path: 'product',
 			model: 'Product',
-			select: ['name', 'price', 'image'],
+			select: ['name', 'price', 'image', 'discount'],
 		},
 	});
 
@@ -24,13 +24,18 @@ exports.createPayment = asyncHdl(async (req, res, next) => {
 	}
 
 	const line_items = order.products.map((item) => {
+		let price = item.product.price;
+		if (item.product.discount) {
+			price = price - price * (item.product.discount / 100);
+		}
+
 		return {
 			price_data: {
 				currency: 'usd',
 				product_data: {
 					name: item.product.name,
 				},
-				unit_amount: item.product.price * 100,
+				unit_amount: price * 100,
 			},
 			quantity: item.quantity,
 		};

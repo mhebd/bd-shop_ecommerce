@@ -10,7 +10,6 @@ This is BD-Shop ecommerce backend server (Node, Express & Mongoose) project.
   Category
   Order
   Cart Item
-  Payment
 ```
 
 ## Basic authentication rules

@@ -16,7 +16,9 @@ This is BD-Shop ecommerce backend server (Node, Express & Mongoose) project.
 ## Basic authentication rules
 
 > Public - Any user can access
+
 > Private - Only login user can access
+
 > Limited - Only admin can access
 
 ## User section endpoint
